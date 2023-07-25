@@ -64,7 +64,7 @@ curl_multi_remove_handle($mh, $ch2);
 curl_multi_close($mh);
 
 $obj_data_rekrutmen = json_decode($result1);
-$obj_data_attribut = json_decode($result1);
+$obj_data_attribut = json_decode($result2);
 
 // html-header and navbar
 include "base-header.php";
@@ -79,18 +79,20 @@ include "base-nav.php";
 			<h3 class="pull-left">Daftar Surat Cuti</h3>
 		</div>
 <?php 
+/*
 print "<pre>";
-print_r($obj_data_rekrutmen);
-print "</pre><hr/><pre>";
 print_r($obj_data_attribut);
+print "</pre><hr/><pre>";
+print_r($obj_data_rekrutmen);
 print "</pre>";
+*/
 ?>
 		<div class="panel-body table-responsive flex-item sticky-container pt-0 px-0 bg-warning">
 		<table class="table table-condensed mb-5">
 			<thead class="header-row bg-primary" scope="col">
 			<tr>
 				<th style="vertical-align: top">No.</th>
-				<th style="vertical-align: top">Timestamp</th>
+				<th style="vertical-align: top">Pendaftaran</th>
 				<th style="vertical-align: top">Nama&nbsp;//<br/>NIP</th>
 				<th style="vertical-align: top">Satker&nbsp;//<br/>Posisi</th>
 				<th style="vertical-align: top">Keahlian</th>
@@ -100,9 +102,20 @@ print "</pre>";
 			</thead>
 			<tbody>
 				<?php
-				foreach ( $obj_data_rekrutmen as $data ){
-					print "";
-				}
+				$no_urut = 0;
+				foreach ( $obj_data_rekrutmen as $arr_data ){
+				foreach ( $arr_data as $data ){
+					$no_urut++;
+					print '<tr><a href="'.BASE_URL.$controller.'/'.$data['id'].'">';
+					print '<td>'.$no_urut.'</td>';
+					print '<td><span class="label label-info">'.$data['timestamp'].'</span></td>';
+					print '<td><span class="label label-success">'.$data['nama'].'</span><br/><span class="label label-info">'.$data['nip'].'</span></td>';
+					print '<td><span class="label label-success">'.$data['satuan_kerja'].'</span><br/><span class="label label-info">'.$data['posisi_yang_dipilih'].'</span></td>';
+					print '<td>bahasa: <span class="label label-success">'.$data['bahasa_pemrograman_yang_dikuasai'].'</span><br/>framework:<span class="label label-info">'.$data['framework_bahasa_pemrograman_yang_dikuasai'].'</span><br/>database:<span class="label label-info">'.$data['database_yang_dikuasai'].'</span></td>';
+					print '<td><span class="label label-success">'.$data['tools_yang_dikuasai'].'</span></td>';
+					print '<td><span class="label label-success">'.$data['pernah_membuat_mobile_apps'].'</span></td>';
+					print '</tr></a>';
+				}}
 				?>
 			</tbody>
 		</table>

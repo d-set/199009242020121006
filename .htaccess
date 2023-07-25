@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /199009242020121006
+	
+	RewriteCond %{REQUEST_URI} !^.*\.(css|map|js|jpe?g|png|swf|mp3|mp4|gif|pdf|otf|eot|svg|woff2?|ttf|xlsx?|docx?|pptx?)$ [NC]
+	RewriteRule ^(.*)$ base.php?uri=$1 [QSA]
+
+</IfModule>
